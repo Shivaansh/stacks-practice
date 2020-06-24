@@ -167,6 +167,31 @@ bool isFullLLStack(struct Node *top){
     }
 }
 
+bool bracketsBalanced(char *string){
+    int i = 0;
+    struct Node *stackLL;
+    while(string[i] != '\0'){
+        if(string[i] == '('){
+            pushInLLStack(stackLL, 1);
+            i++;
+        }else if(string[i] == ')'){
+            if(isEmptyLLStack(stackLL)){
+                return false;
+            }else{
+                popInLLStack(stackLL);
+                i++;
+            }
+        }else{
+            i++;
+        }
+    }
+    if(!isEmptyLLStack(stackLL)){
+        return false;
+    }else{
+        return true;
+    }
+}
+
 int main() {
 
     struct ArrayStack st;
@@ -230,5 +255,5 @@ int main() {
         printf("Stack is not full\n");
     }
 
-
+    //TODO create char array with brackets to test bracket balance method
 }
