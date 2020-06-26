@@ -169,26 +169,28 @@ bool isFullLLStack(struct Node *top){
 
 bool bracketsBalanced(char *string){
     int i = 0;
-    struct Node *stackLL;
+    struct Node *stackLL = NULL;
+    printf("Displaying stack\n");
+    displayLLStack(stackLL);
     while(string[i] != '\0'){
         if(string[i] == '('){
-            pushInLLStack(stackLL, 1);
+            stackLL = pushInLLStack(stackLL, 1);
             i++;
         }else if(string[i] == ')'){
             if(isEmptyLLStack(stackLL)){
                 return false;
             }else{
-                popInLLStack(stackLL);
+                stackLL = popInLLStack(stackLL);
                 i++;
             }
         }else{
             i++;
         }
     }
-    if(!isEmptyLLStack(stackLL)){
-        return false;
-    }else{
+    if(isEmptyLLStack(stackLL)){
         return true;
+    }else{
+        return false;
     }
 }
 
@@ -255,5 +257,26 @@ int main() {
         printf("Stack is not full\n");
     }
 
-    //TODO create char array with brackets to test bracket balance method
+    printf("Checking brackets\n");
+    //Bracket balance method
+    char *s1 ="(a+b)*(c-d)";
+    char *s2 ="(a+b))*(c-d)";
+    char *s3 ="((a+b)*(c-d)";
+
+
+    if(bracketsBalanced(s1)){
+        printf("S1 is balanced\n");
+    }else{
+        printf("S1 is NOT balanced\n");
+    }
+    if(bracketsBalanced(s2)){
+        printf("S2 is balanced\n");
+    }else{
+        printf("S2 is NOT balanced\n");
+    }
+    if(bracketsBalanced(s3)){
+        printf("S3 is balanced\n");
+    }else{
+        printf("S3 is NOT balanced\n");
+    }
 }
